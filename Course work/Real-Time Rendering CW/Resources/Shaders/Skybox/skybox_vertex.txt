@@ -1,0 +1,22 @@
+#version 330
+
+// The skybox is rendered with the same texture as the environment map (cubemap) used to calculate reflections.
+// Therefore use the same cubemap to avoid duplicating resources.
+// To do this without reflection-based distortion simply use the axis-aligned normals of each skybox face to lookup the 
+// appropriate cubemap face.
+
+uniform mat4 modelViewProjectionMatrix;
+
+
+layout (location = 0) in vec4 vertexPos;
+layout (location = 2) in vec3 vertexNormal;
+
+
+out vec3 normal;
+
+
+void main(void)
+{
+	normal = vertexNormal;
+	gl_Position = modelViewProjectionMatrix * vertexPos;
+}
